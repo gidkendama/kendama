@@ -266,7 +266,7 @@ loadProducts();
 // FREE KENDAMA COMBO ANALYZER
 // ------------------------------
 
-function analyzeCombo(ken, tama) {
+ window.analyzeCombo = function(ken, tama) {
   const result = $("combo-ai-result");
   if (!result) return;
 
