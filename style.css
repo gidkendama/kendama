@@ -131,19 +131,6 @@ nav a:hover {
     radial-gradient(ellipse at 80% 45%, #50612b 0%, #20291a 23%, #101412 57%, #080a0b 80%);
 }
 
-.hero::after {
-  content: "K";
-  position: absolute;
-  right: 8%;
-  top: 50%;
-  transform: translateY(-50%) rotate(-12deg);
-  color: #c8ff00;
-  opacity: 0.08;
-  font-size: clamp(180px, 32vw, 390px);
-  font-weight: 1000;
-  line-height: 1;
-  pointer-events: none;
-}
 
 .eyebrow,
 .combo-eyebrow {
