@@ -249,3 +249,36 @@ footer { display: flex; justify-content: space-between; gap: 15px; padding: 28px
   mix-blend-mode: normal !important;
   object-fit: contain;
 }
+
+/* KENDAMA CORE — Premium Combo Insight */
+.combo-ai {
+  margin-top: 20px;
+  padding: 22px;
+  background: linear-gradient(145deg, #17191f, #0d0e12);
+  border: 1px solid #30333d;
+  border-left: 4px solid #c8ff00;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.combo-ai h4 {
+  margin: 0 0 14px;
+  color: #c8ff00;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+#combo-ai-result {
+  margin: 0;
+  color: #f1f2f5;
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.combo-ai:focus-within {
+  border-color: #c8ff00;
+}
