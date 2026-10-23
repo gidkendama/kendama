@@ -127,6 +127,7 @@ function updatePreview() {
 
   $("build-details").textContent =
     `${ken.name} + ${tama.name} · ${$("string").value} string`;
+  analyzeCombo(ken, tama);
 
   // Product descriptions.
   const kenDescription = ken.description || "";
