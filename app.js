@@ -8,22 +8,34 @@ const supabaseClient = window.supabase.createClient(
 );
 
 let products = [];
-  
+
 const $ = id => document.getElementById(id);
-const money = amount => "$" + amount.toFixed(2);
+
+const money = amount =>
+  "$" + Number(amount || 0).toFixed(2);
+
+
+// ------------------------------
+// PRODUCT CATALOG
+// ------------------------------
 
 function renderCatalog(query = "") {
   const filtered = products.filter(p =>
-    `${p.name} ${p.brand} ${p.type}`.toLowerCase().includes(query.toLowerCase())
+    `${p.name} ${p.brand} ${p.type}`
+      .toLowerCase()
+      .includes(query.toLowerCase())
   );
 
   $("products").innerHTML = filtered.map(p => `
     <article class="product-card">
-    <div class="product-art" style="--paint:${p.color}">
-  ${p.image
-    ? `<img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:contain;">`
-    : `<div class="ball"></div>`}
-</div>
+      <div class="product-art" style="--paint:${p.color}">
+        ${
+          p.image
+            ? `<img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:contain;">`
+            : `<div class="ball"></div>`
+        }
+      </div>
+
       <div class="product-info">
         <p>${p.brand} · ${p.type.toUpperCase()}</p>
         <h3>${p.name}</h3>
@@ -35,73 +47,184 @@ function renderCatalog(query = "") {
 
   document.querySelectorAll("[data-select]").forEach(button => {
     button.addEventListener("click", () => {
-    const product = products.find(p => p.id === button.dataset.select);
-     if (!product) return;
-      $(product.type).value = String(product.id);
+      const product = products.find(
+        p => String(p.id) === button.dataset.select
+      );
+
+      if (!product) return;
+
+      const selectType = product.type === "ken" || product.type === "tama"
+        ? product.type
+        : null;
+
+      if (!selectType) {
+        $("builder").scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+
+      $(selectType).value = String(product.id);
       updatePreview();
+
       $("builder").scrollIntoView({ behavior: "smooth" });
     });
   });
 }
 
+
+// ------------------------------
+// BUILDER DROPDOWNS
+// ------------------------------
+
 function fillSelect(id, type) {
-  $(id).innerHTML = products
+  const select = $(id);
+
+  if (!select) return;
+
+  select.innerHTML = products
     .filter(p => p.type === type)
-    .map(p => `<option value="${p.id}">${p.brand} — ${p.name} (${money(p.price)})</option>`)
+    .map(p =>
+      `<option value="${p.id}">${p.brand} — ${p.name} (${money(p.price)})</option>`
+    )
     .join("");
 }
 
 
+// ------------------------------
+// PRICE + BUILD PREVIEW
+// ------------------------------
+
 function updatePreview() {
-  const ken = products.find(p => p.id === $("ken").value);
-  const tama = products.find(p => p.id === $("tama").value);
+  const kenSelect = $("ken");
+  const tamaSelect = $("tama");
+
+  if (!kenSelect || !tamaSelect) return;
+
+  const ken = products.find(
+    p => String(p.id) === String(kenSelect.value)
+  );
+
+  const tama = products.find(
+    p => String(p.id) === String(tamaSelect.value)
+  );
 
   if (!ken || !tama) return;
 
-  // Show the actual product photos.
+  // Product images.
   $("ken-preview").src = ken.image || "";
   $("tama-preview").src = tama.image || "";
 
-  // Show the selected product names.
+  // Product names.
   $("ken-preview-name").textContent = ken.name;
   $("tama-preview-name").textContent = tama.name;
 
-  // Keep the string color preview.
-  $("string-preview").style.background = $("string").value.toLowerCase();
+  // String color.
+  $("string-preview").style.background =
+    $("string").value.toLowerCase();
 
-  // Update build information.
-  $("build-name").textContent = `${ken.brand} Ken + ${tama.brand} Tama`;
+  // Build title and details.
+  $("build-name").textContent =
+    `${ken.brand} Ken + ${tama.brand} Tama`;
+
   $("build-details").textContent =
-    `${ken.name} + ${tama.name} · ${$("string").value} string`; 
+    `${ken.name} + ${tama.name} · ${$("string").value} string`;
 
-  // Explain the selected combination using saved product descriptions.
+  // Product descriptions.
   const kenDescription = ken.description || "";
   const tamaDescription = tama.description || "";
 
-  $("combo-strengths").textContent =
-    kenDescription || tamaDescription
-      ? `Ken: ${kenDescription || "No description added yet."} Tama: ${tamaDescription || "No description added yet."}`
-      : "Add official product descriptions to learn more about this combination.";
+  if ($("combo-ken-description")) {
+    $("combo-ken-description").textContent =
+      kenDescription ||
+      "No official description has been added for this ken yet.";
+  }
 
-  $("combo-considerations").textContent =
-    "Compatibility depends on the tama size, product specifications, and your personal playing style.";
+  if ($("combo-tama-description")) {
+    $("combo-tama-description").textContent =
+      tamaDescription ||
+      "No official description has been added for this tama yet.";
+  }
 
+  // Compatibility information.
+  const kenText = kenDescription.toLowerCase();
+  const tamaText = tamaDescription.toLowerCase();
 
-  const total = ken.price + tama.price;
+  const kenRecommends62mm =
+    kenText.includes("62mm") || kenText.includes("62 mm");
+
+  const tamaIs62mm =
+    /62\s*mm/i.test(tamaText);
+
+  if ($("combo-compatibility")) {
+    $("combo-compatibility").textContent =
+      kenRecommends62mm && tamaIs62mm
+        ? "Size match: the ken recommends a 62 mm tama, and the selected tama is listed as 62 mm."
+        : "Check the official product specifications to confirm the recommended tama size.";
+  }
+
+  // Things to consider.
+  if ($("combo-considerations")) {
+    $("combo-considerations").textContent =
+      "Check the official specifications for size and weight. Personal playing feel can vary.";
+  }
+
+  // Support the older combo-strengths layout if your HTML uses it.
+  if ($("combo-strengths")) {
+    $("combo-strengths").textContent =
+      kenDescription || tamaDescription
+        ? `Ken: ${kenDescription || "No description added yet."} Tama: ${tamaDescription || "No description added yet."}`
+        : "Add official product descriptions to learn more about this combination.";
+  }
+
+  // Calculate the total as numbers.
+  const total =
+    Number(ken.price || 0) + Number(tama.price || 0);
+
   $("build-price").textContent = money(total);
 }
 
-$("search").addEventListener("input", e => renderCatalog(e.target.value));
-["ken", "tama", "string"].forEach(id =>
-  $(id).addEventListener("change", updatePreview)
-);
 
-$("add-build").addEventListener("click", () => {
-  const count = Number($("cart-count").textContent) + 1;
-  $("cart-count").textContent = count;
-  $("add-build").textContent = "BUILD SAVED ✓";
-  setTimeout(() => $("add-build").textContent = "SAVE MY BUILD", 1500);
+// ------------------------------
+// SEARCH + BUILDER EVENTS
+// ------------------------------
+
+if ($("search")) {
+  $("search").addEventListener("input", e => {
+    renderCatalog(e.target.value);
+  });
+}
+
+["ken", "tama", "string"].forEach(id => {
+  if ($(id)) {
+    $(id).addEventListener("change", updatePreview);
+  }
 });
+
+
+// ------------------------------
+// SAVE BUILD BUTTON
+// ------------------------------
+
+if ($("add-build")) {
+  $("add-build").addEventListener("click", () => {
+    const cartCount = $("cart-count");
+
+    if (!cartCount) return;
+
+    const count = Number(cartCount.textContent) + 1;
+    cartCount.textContent = count;
+
+    $("add-build").textContent = "BUILD SAVED ✓";
+
+    setTimeout(() => {
+      $("add-build").textContent = "SAVE MY BUILD";
+    }, 1500);
+  });
+}
+
+
+// ------------------------------
+// LOAD PRODUCTS FROM SUPABASE
+// ------------------------------
 
 async function loadProducts() {
   const { data, error } = await supabaseClient
@@ -111,29 +234,35 @@ async function loadProducts() {
 
   if (error) {
     console.error("Could not load products:", error);
-    $("products").textContent = "Could not load products. Check the browser console.";
+
+    if ($("products")) {
+      $("products").textContent =
+        "Could not load products. Check the browser console.";
+    }
+
     return;
   }
 
-  products = data.map(p => ({
+  products = (data || []).map(p => ({
     id: p.id,
-    name: p.name,
-
     name: p.name,
     description: p.description || "",
     brand: p.brand,
-
-    brand: p.brand,
-    type: p.product_type === "full_kendama" ? "ken" : p.product_type,
+    type: p.product_type === "full_kendama"
+      ? "ken"
+      : p.product_type,
     price: Number(p.price || 0),
     color: "#c6a16e",
-    image: p.image_url
+    image: p.image_url || ""
   }));
 
   fillSelect("ken", "ken");
   fillSelect("tama", "tama");
+
   renderCatalog();
   updatePreview();
 }
 
+
+// Start the website.
 loadProducts();
