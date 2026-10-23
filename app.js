@@ -167,14 +167,34 @@ function updatePreview() {
       "Check the official specifications for size and weight. Personal playing feel can vary.";
   }
 
-  // Support the older combo-strengths layout if your HTML uses it.
-  if ($("combo-strengths")) {
-    $("combo-strengths").textContent =
-      kenDescription || tamaDescription
-        ? `Ken: ${kenDescription || "No description added yet."} Tama: ${tamaDescription || "No description added yet."}`
-        : "Add official product descriptions to learn more about this combination.";
-  }
+  // Support the older  layout if your HTML uses it.
+if ($("combo-ken-description")) {
+  $("combo-ken-description").textContent =
+    kenDescription || "No official description has been added for this ken yet.";
+}
 
+if ($("combo-tama-description")) {
+  $("combo-tama-description").textContent =
+    tamaDescription || "No official description has been added for this tama yet.";
+}
+
+if ($("combo-compatibility")) {
+  const kenRecommends62mm =
+    /62\s*mm/i.test(kenDescription);
+
+  const tamaIs62mm =
+    /62\s*mm/i.test(tamaDescription);
+
+  $("combo-compatibility").textContent =
+    kenRecommends62mm && tamaIs62mm
+      ? "Size match: both descriptions mention 62 mm."
+      : "Check the official product specifications to confirm the recommended tama size.";
+}
+
+if ($("combo-considerations")) {
+  $("combo-considerations").textContent =
+    "Check the official specifications for size and weight. Personal playing feel can vary.";
+}
   // Calculate the total as numbers.
   const total =
     Number(ken.price || 0) + Number(tama.price || 0);
