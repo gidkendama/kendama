@@ -77,7 +77,7 @@ input {
 }
 
 .logo::before {
-  content: "K/";
+  content: "H/";
   margin-right: 9px;
   color: var(--accent);
 }
