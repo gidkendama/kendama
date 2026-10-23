@@ -259,3 +259,62 @@ async function loadProducts() {
 
 // Start the website.
 loadProducts();
+
+
+// ------------------------------
+// FREE KENDAMA COMBO ANALYZER
+// ------------------------------
+
+function analyzeCombo(ken, tama) {
+  const result = $("combo-ai-result");
+  if (!result) return;
+
+  const kenDescription = ken.description || "";
+  const tamaDescription = tama.description || "";
+
+  const kenText = kenDescription.toLowerCase();
+  const tamaText = tamaDescription.toLowerCase();
+
+  const insights = [];
+
+  // Check whether both descriptions mention 62 mm.
+  const kenMentions62 = /62\s*mm/i.test(kenDescription);
+  const tamaMentions62 = /62\s*mm/i.test(tamaDescription);
+
+  if (kenMentions62 && tamaMentions62) {
+    insights.push(
+      "Size: both product descriptions mention 62 mm, which is a promising size match."
+    );
+  } else {
+    insights.push(
+      "Size: the available descriptions don't confirm a matching recommended tama size. Check the manufacturers' specifications."
+    );
+  }
+
+  // Summarize the information actually available.
+  insights.push(
+    kenDescription
+      ? `Ken details: ${kenDescription}`
+      : "Ken details: no product description is available yet."
+  );
+
+  insights.push(
+    tamaDescription
+      ? `Tama details: ${tamaDescription}`
+      : "Tama details: no product description is available yet."
+  );
+
+  // Look for coating information without guessing how it plays.
+  if (
+    tamaText.includes("rhino clear") ||
+    tamaText.includes("sticky") ||
+    tamaText.includes("silk")
+  ) {
+    insights.push(
+      "Tama finish: the description mentions a finish or coating. Its playing feel can depend on the specific product and condition."
+    );
+  }
+
+  result.textContent =
+    "Here's your combo breakdown:\n\n" + insights.join("\n\n");
+}
