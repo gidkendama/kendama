@@ -929,3 +929,19 @@ footer p {
     font-size: 130px;
   }
 }
+
+.hero-visual {
+  overflow: hidden;
+  min-height: 320px;
+  padding: 0;
+  border-radius: 12px;
+}
+
+.hero-kendama {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+  object-position: center;
+}
