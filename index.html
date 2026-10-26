@@ -4,86 +4,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>HITO'S KENS | Custom Kendama Builder</title>
+
+  <title>HITO'S KENS | Custom Kendama Builder</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <header class="topbar">
-   <a class="logo" href="#">HITO'S <span>KENS</span></a>
+    <a class="logo" href="#">HITO'S <span>KENS</span></a>
+
     <nav>
       <a href="#catalog">Explore</a>
       <a href="#builder">Build a Kendama</a>
     </nav>
-    <a class="cart" href="#builder">MY BUILD <span id="cart-count">0</span></a>
+
+    <a class="cart" href="#builder">
+      MY BUILD <span id="cart-count">0</span>
+    </a>
   </header>
 
   <main>
-   
-<section class="hero">
-  <div class="hero-content">
-    <p class="eyebrow">HITO'S KENS / FIND YOUR FLOW</p>
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">HITO'S KENS / FIND YOUR FLOW</p>
 
-    <h1>FIND YOUR<br><span>NEXT KEN.</span></h1>
+        <h1>FIND YOUR<br><span>NEXT KEN.</span></h1>
 
-    <p class="hero-description">
-      Discover kendamas, build your perfect setup,
-      and find your next favorite.
-    </p>
+        <p class="hero-description">
+          Discover kendamas, build your perfect setup,
+          and find your next favorite.
+        </p>
 
-    <a class="button" href="#builder">BUILD YOUR SETUP ↗</a>
+        <a class="button" href="#builder">BUILD YOUR SETUP ↗</a>
 
-    <p class="hero-note">PICK YOUR KEN. CHOOSE YOUR TAMA. PLAY YOUR WAY.</p>
-  </div>
+        <p class="hero-note">
+          PICK YOUR KEN. CHOOSE YOUR TAMA. PLAY YOUR WAY.
+        </p>
+      </div>
 
-  <div class="hero-visual">
-    <div class="hero-circle"></div>
-    <div class="hero-mark">H<span>K</span></div>
-    <p class="hero-visual-label">HITO'S KENS — EST. FOR THE NEXT TRICK</p>
-  </div>
-</section>
+      <div class="hero-visual">
+        <img
+          class="hero-kendama"
+          src="hitos-kens-new.webp"
+          alt="HITO'S KENS kendama showcase"
+        >
+      </div>
+    </section>
 
-
-<div class="hero-visual">
-  <img
-    class="hero-kendama"
-    src="hitos-kens-new.webp"
-    alt="HITO'S KENS kendama showcase"
-  />
-</div>
-
-  <div class="hero-visual" aria-label="Kendama product showcase">
-    <div class="hero-orbit"></div>
-    <div class="hero-product-label">
-      <span class="hero-status-dot"></span>
-      FIND YOUR NEXT FAVORITE
-    </div>
-    <div class="hero-product-mark">HK<span>.</span></div>
-    <div class="hero-product-caption">
-      <span>HITO'S KENS</span>
-      <span>PLAY YOUR WAY.</span>
-    </div>
-  </div>
-</section>
-
-
+    <!-- PRODUCT CATALOG -->
     <section id="catalog" class="section">
       <div class="section-heading">
         <div>
           <p class="eyebrow">THE COLLECTION</p>
           <h2>Explore kendamas</h2>
         </div>
-        <input id="search" type="search" placeholder="Search brands or products...">
+
+        <input
+          id="search"
+          type="search"
+          placeholder="Search brands or products..."
+        >
       </div>
+
       <div id="products" class="product-grid"></div>
-      <p class="disclaimer">Starter demo catalog — sample entries are not live inventory.</p>
+
+      <p class="disclaimer">
+        Starter demo catalog — sample entries are not live inventory.
+      </p>
     </section>
 
+    <!-- KENDAMA BUILDER -->
     <section id="builder" class="section builder-section">
       <p class="eyebrow">CUSTOMIZE YOUR SETUP</p>
+
       <h2>Build your kendama.</h2>
-      <p>Mix and match a ken and a tama. Choose a string color and create your setup.</p>
+
+      <p>
+        Mix and match a ken and a tama. Choose a string color
+        and create your setup.
+      </p>
 
       <div class="builder-grid">
+        <!-- BUILDER CONTROLS -->
         <div class="builder-panel">
           <label for="ken">Choose your ken</label>
           <select id="ken"></select>
@@ -101,91 +104,112 @@
             <option>Yellow</option>
           </select>
 
-          <button id="add-build" class="button full">SAVE MY BUILD</button>
+          <button id="add-build" class="button full">
+            SAVE MY BUILD
+          </button>
         </div>
 
+        <!-- BUILD PREVIEW -->
         <div class="preview">
-       
-<div class="preview">
-  <h3>Your custom kendama</h3>
+          <h3>Your custom kendama</h3>
 
-  <div class="preview-parts">
-    <div class="preview-part">
-      <img id="ken-preview" src="" alt="Selected ken">
-      <p id="ken-preview-name">Choose a ken</p>
-    </div>
+          <div class="preview-parts">
+            <div class="preview-part">
+              <img id="ken-preview" src="" alt="Selected ken">
+              <p id="ken-preview-name">Choose a ken</p>
+            </div>
 
-    <div class="preview-part">
-      <img id="tama-preview" src="" alt="Selected tama">
-      <p id="tama-preview-name">Choose a tama</p>
-    </div>
-  </div>
+            <div class="preview-part">
+              <img id="tama-preview" src="" alt="Selected tama">
+              <p id="tama-preview-name">Choose a tama</p>
+            </div>
+          </div>
 
-  <p>String color</p>
-  <div id="string-preview"></div>
+          <p>String color</p>
+          <div id="string-preview"></div>
 
-  <h3 id="build-name">Your custom kendama</h3>
-  <p id="build-details">Choose parts to get started.</p>
+          <h3 id="build-name">Your custom kendama</h3>
 
+          <p id="build-details">
+            Choose parts to get started.
+          </p>
 
-<div class="combo-analysis">
-  <div class="combo-heading">
-    <p class="combo-eyebrow">BUILD BREAKDOWN</p>
-    <h3>Why this combo?</h3>
-    <div class="combo-ai">
-  <h4>COMBO INSIGHT</h4>
-  <p id="combo-ai-result">
-    Choose a ken and tama to get a breakdown of how they may work together.
-  </p>
-</div>
-    <p>AI-powered insights into how your selected ken and tama work together.</p>
-  </div>
+          <p class="price" id="build-price">$0.00</p>
 
-  <div class="combo-grid">
-    <article class="combo-card">
-      <h4><span>01</span> Ken features</h4>
-      <p id="combo-ken-description">
-        Choose a ken to see its features.
-      </p>
-    </article>
+          <p class="disclaimer">
+            Product photos shown for your selected parts.
+          </p>
+        </div>
+      </div>
 
-    <article class="combo-card">
-      <h4><span>02</span> Tama features</h4>
-      <p id="combo-tama-description">
-        Choose a tama to see its features.
-      </p>
-    </article>
+      <!-- COMBO BREAKDOWN -->
+      <div class="combo-analysis">
+        <div class="combo-heading">
+          <p class="combo-eyebrow">BUILD BREAKDOWN</p>
 
-    <article class="combo-card">
-      <h4><span>03</span> Compatibility</h4>
-      <p id="combo-compatibility">
-        Product compatibility information will appear here.
-      </p>
-    </article>
+          <h3>Why this combo?</h3>
 
-    <article class="combo-card">
-      <h4><span>04</span> Things to consider</h4>
-      <p id="combo-considerations">
-        Select products to see useful details and limitations.
-      </p>
-    </article>
-  </div>
-</div>
+          <p>
+            Insights into how your selected ken and tama
+            may work together.
+          </p>
+        </div>
 
+        <div class="combo-ai">
+          <h4>COMBO INSIGHT</h4>
 
-  <p class="price" id="build-price">$0.00</p>
-  <p class="disclaimer">Product photos shown for your selected parts.</p>
-</div>
+          <p id="combo-ai-result">
+            Choose a ken and tama to get a breakdown of how
+            they may work together.
+          </p>
+        </div>
 
+        <div class="combo-grid">
+          <article class="combo-card">
+            <h4><span>01</span> Ken features</h4>
+
+            <p id="combo-ken-description">
+              Choose a ken to see its features.
+            </p>
+          </article>
+
+          <article class="combo-card">
+            <h4><span>02</span> Tama features</h4>
+
+            <p id="combo-tama-description">
+              Choose a tama to see its features.
+            </p>
+          </article>
+
+          <article class="combo-card">
+            <h4><span>03</span> Compatibility</h4>
+
+            <p id="combo-compatibility">
+              Product compatibility information will appear here.
+            </p>
+          </article>
+
+          <article class="combo-card">
+            <h4><span>04</span> Things to consider</h4>
+
+            <p id="combo-considerations">
+              Select products to see useful details and limitations.
+            </p>
+          </article>
+        </div>
       </div>
     </section>
   </main>
 
+  <!-- FOOTER -->
   <footer>
-  <a class="logo" href="#">HITO'S <span>KENS</span></a>  <p>Made for the kendama community.</p>
+    <a class="logo" href="#">HITO'S <span>KENS</span></a>
+
+    <p>Made for the kendama community.</p>
   </footer>
 
+  <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
