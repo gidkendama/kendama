@@ -285,18 +285,19 @@ async function loadProducts() {
     return;
   }
 
-  products = (data || []).map(p => ({
-    id: p.id,
-    name: p.name,
-    description: p.description || "",
-    brand: p.brand,
-    type: p.product_type === "full_kendama"
-      ? "ken"
-      : p.product_type,
-    price: Number(p.price || 0),
-    color: "#c6a16e",
-    image: p.image_url || ""
-  }));
+products = (data || []).map(p => ({
+  id: p.id,
+  name: p.name,
+  description: p.description || "",
+  brand: p.brand,
+  category: p.product_type,
+  type: p.product_type === "full_kendama"
+    ? "ken"
+    : p.product_type,
+  price: Number(p.price || 0),
+  color: "#c6a16e",
+  image: p.image_url || ""
+}));
 
   fillSelect("ken", "ken");
   fillSelect("tama", "tama");
