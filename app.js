@@ -20,6 +20,7 @@ const money = amount =>
 // PRODUCT CATALOG
 // ------------------------------
 
+
 function renderCatalog(query = "") {
   const filtered = products.filter(p => {
     const matchesSearch =
@@ -55,8 +56,23 @@ function renderCatalog(query = "") {
     </div>
   `).join("");
 
-  // Keep the existing "Use in builder" button behavior here.
+  document.querySelectorAll(".use-product").forEach(button => {
+    button.addEventListener("click", () => {
+      const product = products.find(p => p.id === button.dataset.id);
+      if (!product) return;
+
+      if (product.type === "ken") {
+        $("ken").value = product.id;
+      } else if (product.type === "tama") {
+        $("tama").value = product.id;
+      }
+
+      updatePreview();
+      $("builder").scrollIntoView({ behavior: "smooth" });
+    });
+  });
 }
+
 
   $("products").innerHTML = filtered.map(p => `
     <article class="product-card">
