@@ -230,10 +230,39 @@ function updatePreview() {
 // ------------------------------
 
 if ($("search")) {
-  $("search").addEventListener("input", e => {
-    renderCatalog(e.target.value);
+document.querySelectorAll(".category-filter").forEach(button => {
+  button.addEventListener("click", () => {
+    activeCategory = button.dataset.filter;
+    activeBrand = "all";
+
+    document.querySelectorAll(".category-filter").forEach(b =>
+      b.classList.toggle("active", b === button)
+    );
+
+    document.querySelectorAll(".brand-filter").forEach(b =>
+      b.classList.remove("active")
+    );
+
+    renderCatalog($("search")?.value || "");
   });
-}
+});
+
+document.querySelectorAll(".brand-filter").forEach(button => {
+  button.addEventListener("click", () => {
+    activeBrand = button.dataset.brand;
+    activeCategory = "all";
+
+    document.querySelectorAll(".brand-filter").forEach(b =>
+      b.classList.toggle("active", b === button)
+    );
+
+    document.querySelectorAll(".category-filter").forEach(b =>
+      b.classList.remove("active")
+    );
+
+    renderCatalog($("search")?.value || "");
+  });
+});
 
 ["ken", "tama", "string"].forEach(id => {
   if ($(id)) {
