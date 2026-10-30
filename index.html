@@ -51,26 +51,70 @@
 
 
     <!-- PRODUCT CATALOG -->
-    <section id="catalog" class="section">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">THE COLLECTION</p>
-          <h2>Explore kendamas</h2>
-        </div>
+    
+<!-- PRODUCT CATALOG -->
+<section id="catalog" class="section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">THE COLLECTION</p>
+      <h2>Explore kendamas</h2>
+    </div>
 
-        <input
-          id="search"
-          type="search"
-          placeholder="Search brands or products..."
-        >
-      </div>
+    <input
+      id="search"
+      type="search"
+      placeholder="Search brands or products..."
+    >
+  </div>
 
+  <div class="catalog-layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="shop-sidebar">
+      <h3>SHOP BY CATEGORY</h3>
+
+      <button class="category-filter active" data-filter="all">
+        All Products
+      </button>
+
+      <button class="category-filter" data-filter="ken">
+        Kens
+      </button>
+
+      <button class="category-filter" data-filter="tama">
+        Tamas
+      </button>
+
+      <button class="category-filter" data-filter="full_kendama">
+        Full Kendamas
+      </button>
+
+      <div class="sidebar-divider"></div>
+
+      <h3>SHOP BY BRAND</h3>
+
+      <button class="brand-filter" data-brand="KROM">KROM</button>
+      <button class="brand-filter" data-brand="Sweets">Sweets</button>
+      <button class="brand-filter" data-brand="Lotus">Lotus</button>
+      <button class="brand-filter" data-brand="PDOX">PDOX</button>
+      <button class="brand-filter" data-brand="Sun Dune">Sun Dune</button>
+      <button class="brand-filter" data-brand="Kendama Israel">
+        Kendama Israel
+      </button>
+    </aside>
+
+    <!-- PRODUCTS -->
+    <div class="catalog-products">
       <div id="products" class="product-grid"></div>
+    </div>
 
-      <p class="disclaimer">
-        Starter demo catalog — sample entries are not live inventory.
-      </p>
-    </section>
+  </div>
+
+  <p class="disclaimer">
+    Product availability depends on the listed inventory.
+  </p>
+</section>
+
 
     <!-- KENDAMA BUILDER -->
     <section id="builder" class="section builder-section">
