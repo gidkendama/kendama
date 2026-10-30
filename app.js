@@ -21,11 +21,42 @@ const money = amount =>
 // ------------------------------
 
 function renderCatalog(query = "") {
-  const filtered = products.filter(p =>
-    `${p.name} ${p.brand} ${p.type}`
-      .toLowerCase()
-      .includes(query.toLowerCase())
-  );
+  const filtered = products.filter(p => {
+    const matchesSearch =
+      `${p.name} ${p.brand} ${p.type}`
+        .toLowerCase()
+        .includes(query.toLowerCase());
+
+    const matchesCategory =
+      activeCategory === "all" ||
+      p.category === activeCategory;
+
+    const matchesBrand =
+      activeBrand === "all" ||
+      p.brand.toLowerCase() === activeBrand.toLowerCase();
+
+    return matchesSearch && matchesCategory && matchesBrand;
+  });
+
+  $("products").innerHTML = filtered.map(p => `
+    <div class="product-card">
+      <div class="product-art">
+        ${p.image ? `<img src="${p.image}" alt="${p.name}">` : ""}
+      </div>
+      <div class="product-info">
+        <p class="product-brand">${p.brand}</p>
+        <h3>${p.name}</h3>
+        <p>${p.type.toUpperCase()}</p>
+        <strong>$${p.price.toFixed(2)}</strong>
+        <button class="use-product" data-id="${p.id}">
+          Use in builder
+        </button>
+      </div>
+    </div>
+  `).join("");
+
+  // Keep the existing "Use in builder" button behavior here.
+}
 
   $("products").innerHTML = filtered.map(p => `
     <article class="product-card">
