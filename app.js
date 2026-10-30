@@ -8,7 +8,8 @@ const supabaseClient = window.supabase.createClient(
 );
 
 let products = [];
-
+let activeCategory = "all";
+let activeBrand = "all";
 const $ = id => document.getElementById(id);
 
 const money = amount =>
